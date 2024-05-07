@@ -1,0 +1,27 @@
+version: '3'
+services:
+  integrations:
+    build:
+      context: ./
+      dockerfile: ./integrations/Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - "8001:81"
+  tools:
+    build:
+      context: ./
+      dockerfile: ./tool_functions/Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - "8002:82"
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - integrations
+      - tools

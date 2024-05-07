@@ -1,0 +1,6 @@
+venv/
+.idea/
+integrations/
+utlik_main_app/
+bots/
+local_run/

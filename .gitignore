@@ -1,0 +1,7 @@
+venv/
+.idea/
+*/__pycache__/
+local_run/
+
+
+.env
