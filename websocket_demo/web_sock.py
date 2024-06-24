@@ -42,7 +42,7 @@ def get_history_messages(user_id, chat_id, model_id, client_name, source='webcha
     return messages
 
 
-def save_chat_message(user_id, chat_id, model_id, role, message, client_name, source='webchat'):
+def save_chat_message(user_id, chat_id, model_id, client_name,  role, message, source='webchat'):
     with sqlite3.connect('test.db') as conn:
         conn.execute(f'''
         INSERT INTO chat_history (user_id, chat_id, model_id, client_name, source, role, message) 
