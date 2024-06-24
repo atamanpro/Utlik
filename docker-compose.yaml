@@ -1,21 +1,80 @@
-version: '3'
+version: '3.8'
 services:
-  integrations:
+  websockets_demo:
+    container_name: websockets_demo
     build:
       context: ./
-      dockerfile: ./integrations/Dockerfile
+      dockerfile: websocket_demo/Dockerfile
     env_file:
       - ./.env
-    ports:
-      - "8001:81"
+#    ports:
+#      - "9999:9999"
+
   tools:
+    container_name: tools
     build:
       context: ./
       dockerfile: ./tool_functions/Dockerfile
     env_file:
       - ./.env
-    ports:
-      - "8002:82"
+#    ports:
+#      - "8002:82"
+
+  belhard_tg_bot:
+    container_name: belhard_tg_bot
+    build:
+      context: ./
+      dockerfile: bots/belhard/Dockerfile
+    env_file:
+      - ./bots/belhard/.env
+  #    ports:
+  #      - ":"
+  yoowills_tg_bot:
+    container_name: yoowills_tg_bot
+    build:
+      context: ./
+      dockerfile: bots/yoowills/Dockerfile
+    env_file:
+      - ./bots/yoowills/.env
+  #    ports:
+  #      - ":"
+  a100_chat:
+    container_name: a100_chat
+    build:
+      context: ./
+      dockerfile: chats_demo/a100/Dockerfile
+    env_file:
+      - ./.env
+  #    ports:
+  #      - ":"
+  belhard_chat:
+    container_name: belhard_chat
+    build:
+      context: ./
+      dockerfile: chats_demo/belhard/Dockerfile
+    env_file:
+      - ./.env
+  #    ports:
+  #      - ":"
+  relaxsan_chat:
+    container_name: relaxsan_chat
+    build:
+      context: ./
+      dockerfile: chats_demo/relaxsan/Dockerfile
+    env_file:
+      - ./.env
+  #    ports:
+  #      - ":"
+  yoowills_chat:
+    container_name: yoowills_chat
+    build:
+      context: ./
+      dockerfile: chats_demo/yoowills/Dockerfile
+    env_file:
+      - ./.env
+  #    ports:
+  #      - ":"
+
   nginx:
     build:
       context: ./
@@ -23,5 +82,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - integrations
+      - websockets_demo
       - tools
+      - a100_chat
+      - relaxsan_chat
