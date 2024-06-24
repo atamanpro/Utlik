@@ -14,6 +14,7 @@ def init_metadata_db():
         user_id INTEGER,
         chat_id INTEGER,
         model_id INTEGER,
+        client_name TEXT,
         source TEXT,
         role TEXT,
         message TEXT,
@@ -25,13 +26,14 @@ def init_metadata_db():
 init_metadata_db()
 
 
-def get_history_messages(user_id, chat_id, model_id, source='webchat'):
+def get_history_messages(user_id, chat_id, model_id, client_name, source='webchat'):
     with sqlite3.connect('test.db') as conn:
         cursor = conn.cursor()
         cursor.execute(f'''
         SELECT message FROM chat_history
         WHERE user_id={user_id} and chat_id={chat_id}
         and model_id={model_id} and source='{source}'
+        and client_name='{client_name}'
         ORDER BY tmstmp
         ;
         ''')
@@ -40,11 +42,11 @@ def get_history_messages(user_id, chat_id, model_id, source='webchat'):
     return messages
 
 
-def save_chat_message(user_id, chat_id, model_id, role, message, source='webchat'):
+def save_chat_message(user_id, chat_id, model_id, role, message, client_name, source='webchat'):
     with sqlite3.connect('test.db') as conn:
         conn.execute(f'''
-        INSERT INTO chat_history (user_id, chat_id, model_id, source, role, message) 
-        values ('{user_id}', '{chat_id}', '{model_id}', '{source}', '{role}', '{message}') ; ''')
+        INSERT INTO chat_history (user_id, chat_id, model_id, client_name, source, role, message) 
+        values ('{user_id}', '{chat_id}', '{model_id}', '{client_name}', '{source}', '{role}', '{message}') ; ''')
 
 
 active_connections_set = set()
@@ -64,14 +66,14 @@ async def websocket_endpoint(websocket: WebSocket, user_id: int, chat_id: int, m
                 for message in history:
                     await websocket.send_text(json.dumps({"message": message}))
             elif data["type"] == "message":
-                save_chat_message(user_id, chat_id, model_id, 'user', data["message"], source='webchat')
+                save_chat_message(user_id, chat_id, model_id, client_name, 'user', data["message"], source='webchat')
                 ### response редиректить на определенную модельку
                 url = f"http://{client_name}_chat/rag_chat/"
                 headers = {'Content-Type': 'application/json'}
                 question_data = {"question": data["message"]}
                 response = requests.post(url, json=question_data, headers=headers)
                 await websocket.send_text(json.dumps({"message": response, "user_type": "system"}))
-                save_chat_message(user_id, chat_id, model_id, 'system', response, source='webchat')
+                save_chat_message(user_id, chat_id, model_id, client_name, 'system', response, source='webchat')
     except (WebSocketDisconnect) as e:
         print(f"Client disconnected + {e}")
 
