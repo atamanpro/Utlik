@@ -49,16 +49,15 @@ def save_chat_message(user_id, chat_id, model_id, role, message, client_name, so
         values ('{user_id}', '{chat_id}', '{model_id}', '{client_name}', '{source}', '{role}', '{message}') ; ''')
 
 
-active_connections_set = set()
+active_connections: dict[str, WebSocket] = {}
 
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket, user_id: int, chat_id: int, model_id: int, client_name: str):
-
+    formated_chat_id = f"{user_id}_{chat_id}_{model_id}_{client_name}"
     try:
-        history = get_history_messages(user_id, chat_id, model_id, source='webchat')
+        history = get_history_messages(user_id, chat_id, model_id, client_name, source='webchat')
         await websocket.accept()
-        active_connections_set.add(websocket)
         while True:
             data = await websocket.receive_text()
             data = json.loads(data)
