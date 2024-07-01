@@ -1,0 +1,173 @@
+@import "../../styles/";
+
+.botContainer {
+    display: flex;
+    position: relative;
+    align-items: end;
+    border-radius: 10px;
+    height: 500px;
+    width: 400px;
+    background: $white;
+    border: 1px solid #086bcd;
+    padding: 10px;
+
+    .botWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 100%;
+        height: 100%;
+        scrollbar-width: thin;
+        scrollbar-color: #086bcd transparent;
+    }
+
+    .chat {
+        @include flexbox(space-between, stretch, column, 0);
+        height: 100%;
+        font-family: "Inter";
+        overflow-y: auto;
+        border-radius: 10px;
+        scrollbar-width: thin;
+        scrollbar-color: #086bcd #f1f1f1;
+
+        &Messages {
+            @include flexbox(flex-start, stretch, column, 5px);
+        }
+
+
+        .botWriting {
+            @include text($black, 400, 14px, Inter);
+            @include flexbox(flex-start, center, row, 30px);
+            border-radius: 10px;
+            padding: 10px 8px;
+        }
+    }
+
+    .inpForm {
+        @include flexbox(space-between, flex-end, row, 0);
+
+        border: 1px solid $medium-gray;
+        border-radius: 10px;
+        overflow: hidden;
+        max-height: 200px;
+        min-height: 54px;
+
+        .inpText {
+            outline: none;
+            overflow: auto;
+            height: 100%;
+            scrollbar-width: thin;
+            padding: 10px 0;
+
+            @include text($black, 400, 16px, Inter);
+            padding-left: 10px;
+            width: 75%;
+        }
+
+        .btnsWrapper {
+            @include flexbox(flex-end, center, row, 10px);
+            height: 54px;
+            padding-right: 10px;
+        }
+
+        .btnVoice {
+            @include flexbox(center, center, row, 0);
+            background: none;
+            border: none;
+            cursor: pointer;
+
+            &:disabled {
+                filter: grayscale(1);
+                cursor: not-allowed;
+            }
+        }
+
+        .inpSubmit {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: url(./assets/icons/arrowEnter.svg) no-repeat 50% 50%;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &:disabled {
+                filter: grayscale(1);
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .closeBtnRight {
+        position: absolute;
+        top: 0;
+        right: -58px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: none;
+        font-size: 40px;
+        color: #086bcd;
+        background: none;
+        border: 2px solid #086bcd;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            background: linear-gradient(315deg, #086bcd, #29a0ff);
+            color: $white;
+            border: 2px solid transparent;
+        }
+    }
+
+    .closeBtnLeft {
+        position: absolute;
+        top: 0;
+        left: -58px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: none;
+        font-size: 40px;
+        color: #086bcd;
+        background: none;
+        border: 2px solid #086bcd;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            background: linear-gradient(315deg, #086bcd, #29a0ff);
+            color: $white;
+            border: 2px solid transparent;
+        }
+    }
+}
+
+.loader {
+    width: 10px;
+    aspect-ratio: 1;
+    background: #086bcd;
+    border-radius: 50%;
+    animation: loader 1s infinite linear alternate;
+}
+
+@keyframes loader {
+    0% {
+        box-shadow: 15px 0 #086bcd, -25px 0 #086bcd;
+    }
+
+    50% {
+        box-shadow: 15px 0 #086bcd, -15px 0 #086bcd;
+    }
+
+    100% {
+        box-shadow: 25px 0 #086bcd, -15px 0 #086bcd;
+    }
+}
+
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    pointer-events: none;
+    display: block;
+}

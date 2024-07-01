@@ -1,0 +1,309 @@
+@import "../../styles";
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: unset;
+
+  .ourBotTitle {
+    @include text($white, 600, 42px, Montserrat);
+    text-align: center;
+    margin-bottom: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.botContainer {
+  display: flex;
+  align-items: end;
+  border-radius: 10px;
+  height: 500px;
+  background: $white;
+  border: 3px solid $medium-gray;
+  margin: 0 100px;
+  padding: 10px;
+
+  .cyberManList {
+    margin: 10px 0;
+    @include flexbox(space-between, flex-start, column, 5px);
+
+    .itemCyberMan {
+      position: relative;
+      @include flexbox(flex-start, center, row, 6px);
+      border-radius: 10px;
+      padding: 3px 3px 0;
+      cursor: pointer;
+
+      width: 135px;
+      user-select: none;
+
+      &:hover {
+        background: $light-violet;
+      }
+
+      .descriptionWrapper {
+        position: absolute;
+        z-index: 500;
+        background: $light-violet;
+        padding: 3px;
+        border-radius: 10px;
+
+        left: 80%;
+        top: 66%;
+        min-width: 130px;
+
+        p {
+          @include text($black, 400, 14px, Inter);
+        }
+      }
+
+      .pngCyberManItem {
+        img {
+          border-radius: 18px;
+        }
+      }
+
+      p {
+        @include text($black, 400, 14px, Inter);
+      }
+    }
+  }
+
+  .activeCyberMan {
+    position: relative;
+    @include flexbox(flex-start, center, row, 6px);
+    border-radius: 10px;
+    padding: 3px 3px 0;
+    cursor: pointer;
+
+    width: 135px;
+    user-select: none;
+    background: $light-violet;
+
+    .pngCyberManItem {
+      position: relative;
+
+      .activeGreenCircle {
+        width: 10px;
+        height: 10px;
+        background-color: $green;
+
+        position: absolute;
+        right: 0%;
+        bottom: 4%;
+        border-radius: 20px;
+      }
+
+      img {
+        border-radius: 18px;
+      }
+    }
+
+    p {
+      @include text($black, 400, 14px, Inter);
+    }
+  }
+
+  .buttonOpenListCyberMan {
+    @include flexbox(space-between, center, row, 0);
+
+    border-radius: 10px;
+    background: rgb(235, 235, 235);
+    padding: 10px;
+    max-width: 150px;
+    cursor: pointer;
+
+    user-select: none;
+
+    p {
+      @include text(#909090, 500, 14px, Inter);
+    }
+
+    .svgArrowOpenList {
+      background-image: url(./assets/arrowOpenList.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 20px;
+      height: 7px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .svgArrowOpenList.rotated {
+      transform: rotate(180deg);
+    }
+
+  }
+
+  .chat {
+    @include flexbox(space-between, stretch, column, 5px);
+
+    font-family: "Inter";
+
+    max-height: 345px;
+    overflow: auto;
+    transition: max-height 0.5s ease;
+    border-radius: 10px;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    & {
+      scrollbar-width: none;
+    }
+
+    .reqAi {
+      padding: 10px 8px;
+      border-radius: 10px;
+      background: rgb(235, 235, 235);
+      align-self: flex-end;
+      word-break: break-word;
+      max-width: 90%;
+    }
+
+    .resAi {
+      padding: 10px 8px;
+      border-radius: 10px;
+      background: rgb(241, 226, 255);
+      color: black;
+      align-self: flex-start;
+      overflow-wrap: break-word;
+      max-width: 90%;
+    }
+
+    .botWriting {
+      @include text($black, 400, 14px, Inter);
+      @include flexbox(flex-start, center, row, 30px);
+      border-radius: 10px;
+      padding: 10px 8px;
+    }
+  }
+
+  .inpForm {
+    @include flexbox(space-between, center, row, 0);
+
+    border: 1px solid $medium-gray;
+    border-radius: 10px;
+    min-height: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    .inpText {
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      vertical-align: middle;
+
+      @include text($black, 400, 16px, Inter);
+      height: 52px;
+      width: 89%;
+      padding-left: 10px;
+    }
+
+    .btnVoice {
+      @include flexbox(center, center, row, 0);
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:disabled {
+        filter: grayscale(1);
+        cursor: not-allowed;
+      }
+    }
+
+    .inpSubmit {
+      width: 38px;
+      height: 32px;
+      border: none;
+      background: url(../../assets/arrowEnter.svg) no-repeat 50% 50%;
+      margin: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:disabled {
+        filter: grayscale(1);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .topBot {
+    @include flexbox(flex-start, center, row, 10rem);
+    padding: 0 10px;
+
+    p {
+      @include text($gray, 400, 16px, Inter);
+      cursor: pointer;
+    }
+
+    .buttonsWrapper {
+      @include text($black, 400, 14px, Inter);
+      @include flexbox(space-between, center, row, 10px);
+      border-radius: 10px;
+      padding: 3px 3px 3px 12px;
+      background: $light-gray;
+
+      .svgQuestion {
+        background-image: url(./assets/question.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 18px;
+        height: 24px;
+      }
+
+      .btnChoose {
+        border-radius: 10px;
+        background: rgb(44, 222, 123);
+        padding: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .botContainer {
+    margin: 0 20px;
+  }
+}
+
+.botWrapper {
+  width: 100%;
+}
+
+.loader {
+  width: 10px;
+  aspect-ratio: 1;
+  background: #762BF1;
+  border-radius: 50%;
+  animation: l6 1s infinite linear alternate;
+}
+
+@keyframes l6 {
+  0% {
+    box-shadow: 15px 0 #762BF1, -25px 0 #762BF1;
+  }
+
+  50% {
+    box-shadow: 15px 0 #762BF1, -15px 0 #762BF1;
+  }
+
+  100% {
+    box-shadow: 25px 0 #762BF1, -15px 0 #762BF1;
+  }
+}
