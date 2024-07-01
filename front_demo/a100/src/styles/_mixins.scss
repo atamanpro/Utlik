@@ -1,0 +1,12 @@
+@mixin flexbox($horizontal, $vertical, $direction, $gap) {
+    display: flex;
+    justify-content: $horizontal;
+    align-items: $vertical;
+    flex-direction: $direction;
+    gap: $gap;
+}
+
+@mixin text ($color, $weight, $size, $family) {
+    font: $weight $size $family;
+    color: $color;
+}

@@ -1,0 +1,20 @@
+@import "../../styles/";
+
+.reqAi {
+    padding: 10px 8px;
+    border-radius: 10px;
+    background: rgb(235, 235, 235);
+    align-self: flex-end;
+    word-break: break-word;
+    max-width: 90%;
+}
+
+.resAi {
+    padding: 10px 8px;
+    border-radius: 10px;
+    background: linear-gradient(315deg, #086bcd, #29a0ff);
+    color: $white;
+    align-self: flex-start;
+    overflow-wrap: break-word;
+    max-width: 90%;
+}
